@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
+import NoteDatail from "./NoteDatail";
+import NoteList from "./NoteList";
+import { fetchPosts } from "./redux/actions/posts";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = ({ downloadData }) => {
+
+    React.useEffect(() => {
+        downloadData()
+        // eslint-disable-next-line
+    }, [])
+
+    return (
+        <div>
+            <h1>Welcome</h1>
+            <div>
+                <NoteList />
+                <NoteDatail />
+            </div>
+        </div>
+    )
 }
 
-export default App;
+const mapDispatchToProps = {
+    downloadData: fetchPosts
+}
+
+export default connect(null, mapDispatchToProps)(App);
